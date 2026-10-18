@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Super Mario 64 - NFC</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #080d22;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+main {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  gap: 15px;
+}
+h1 { font-size: 24px; text-align: center; }
+p { text-align: center; }
+button, a {
+  padding: 15px 22px;
+  border: 0;
+  border-radius: 12px;
+  background: #ffcf32;
+  color: #111;
+  font-size: 17px;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+</style>
+</head>
+<body>
+<main>
+  <h1>SUPER MARIO 64</h1>
+  <p>Bem-vindo ao seu portal de jogos NFC!</p>
+  <div class="actions">
+    <a href="https://wasmarcade.app/play/super-mario-64">
+      🎮 Abrir jogo
+    </a>
+    <button onclick="fullscreen()">⛶ Tela cheia</button>
+  </div>
+  <p>Vire o celular na horizontal para jogar.</p>
+</main>
+<script>
+async function fullscreen() {
+  try {
+    if (document.documentElement.requestFullscreen) {
+      await document.documentElement.requestFullscreen();
+    } else {
+      alert("Use as opções de tela cheia do navegador.");
+    }
+  } catch(e) {
+    alert("O navegador não permitiu tela cheia.");
+  }
+}
+</script>
+</body>
+</html>
