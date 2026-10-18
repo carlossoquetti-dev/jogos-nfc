@@ -3,16 +3,45 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Super Mario 64</title>
-<meta http-equiv="refresh"
-content="0;url=https://wasmarcade.app/play/super-mario-64">
+<meta name="viewport"
+ content="width=device-width,initial-scale=1,
+ viewport-fit=cover">
+<title>Nintendo 64 - Jogos NFC</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+}
+#game {
+  width: 100%;
+  height: 100dvh;
+  background: #000;
+}
+</style>
 </head>
+
 <body>
+<div id="game"></div>
+
 <script>
-window.location.replace(
-  "https://wasmarcade.app/play/super-mario-64"
-);
+  window.EJS_player = "#game";
+  window.EJS_core = "n64";
+  window.EJS_gameName = "Game Jam 2024";
+  window.EJS_gameUrl = "./gamejam2024.z64";
+  window.EJS_pathtodata =
+    "https://cdn.emulatorjs.org/stable/data/";
+  window.EJS_startOnLoaded = true;
+  window.EJS_volume = 1;
+  window.EJS_color = "#ffcc00";
 </script>
+
+<script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
 </body>
 </html>
