@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Mario 64 - Jogar com sua ROM</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: #10151d; color: #fff; font-family: system-ui, sans-serif; }
+    #setup { min-height: 100dvh; display: flex; align-items: center; justify-content: center; padding: 22px; }
+    .panel { width: min(100%, 480px); background: #1c2633; border-radius: 18px; padding: 24px; }
+    h1 { margin-top: 0; font-size: 1.6rem; }
+    p { line-height: 1.5; color: #d4dbe5; }
+    input { width: 100%; margin: 16px 0; }
+    button { width: 100%; padding: 14px; border: 0; border-radius: 10px; background: #f3c644; color: #171717; font-weight: 700; font-size: 1rem; }
+    button:disabled { opacity: .5; }
+    #status { font-size: .9rem; }
+    #game { display: none; width: 100%; height: 100dvh; background: #000; }
+  </style>
+</head>
+<body>
+  <main id="setup">
+    <section class="panel">
+      <h1>🍄 Super Mario 64</h1>
+      <p>Selecione sua própria ROM de Super Mario 64, obtida legalmente, para jogar neste dispositivo. O arquivo não é enviado ao GitHub.</p>
+      <label for="rom">Arquivo do jogo (.z64, .n64 ou .v64)</label>
+      <input id="rom" type="file" accept=".z64,.n64,.v64,application/octet-stream">
+      <button id="start" disabled>Iniciar emulador</button>
+      <p id="status" role="status">Escolha o arquivo para continuar.</p>
+    </section>
+  </main>
+  <div id="game"></div>
+  <script>
+    const input = document.getElementById('rom');
+    const start = document.getElementById('start');
+    const status = document.getElementById('status');
+    input.addEventListener('change', () => {
+      const file = input.files?.[0];
+      start.disabled = !file || !/\.(z64|n64|v64)$/i.test(file.name);
+      status.textContent = start.disabled ? 'Escolha uma ROM .z64, .n64 ou .v64.' : `Arquivo selecionado: ${file.name}`;
+    });
+    start.addEventListener('click', () => {
+      const file = input.files?.[0];
+      if (!file) return;
+      const localUrl = URL.createObjectURL(file);
+      document.getElementById('setup').style.display = 'none';
+      document.getElementById('game').style.display = 'block';
+      window.EJS_player = '#game';
+      window.EJS_core = 'n64';
+      window.EJS_gameName = 'Super Mario 64';
+      window.EJS_gameUrl = localUrl;
+      window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+      window.EJS_startOnLoaded = false;
+      window.EJS_volume = 1;
+      const script = document.createElement('script');
+      script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+      script.onerror = () => {
+        document.getElementById('setup').style.display = 'flex';
+        document.getElementById('game').style.display = 'none';
+        status.textContent = 'Não foi possível carregar o emulador. Verifique a conexão.';
+      };
+      document.body.appendChild(script);
+    });
+  </script>
+</body>
+</html>
