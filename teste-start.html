@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Teste START — Controle virtual</title>
+<style>
+body{margin:0;background:#121826;color:#fff;font-family:Arial,sans-serif;min-height:100dvh;display:flex;align-items:center;justify-content:center}main{width:min(92vw,480px);text-align:center}h1{font-size:1.4rem}p{line-height:1.5;color:#d1d5db}button{background:#e3342f;color:white;border:0;border-radius:18px;padding:22px 46px;font-weight:800;font-size:1.5rem;touch-action:manipulation}#status{background:#253149;border-radius:12px;padding:16px;margin:20px 0;font-weight:700}small{color:#bac4d6}
+</style></head>
+<body><main><h1>🎮 Teste do botão START</h1><p>Esta página testa o envio de um comando de teclado pelo toque.</p><div id="status">Aguardando toque no botão.</div><button id="start">START</button><p><small>Este é um teste isolado. Ele não controla o jogo aberto em outro site.</small></p></main>
+<script>
+const status=document.getElementById('status');
+const start=document.getElementById('start');
+window.addEventListener('keydown',e=>{if(e.key==='Enter')status.textContent='Comando Enter recebido pela página!';});
+start.addEventListener('click',()=>{
+ const event=new KeyboardEvent('keydown',{key:'Enter',code:'Enter',keyCode:13,which:13,bubbles:true,cancelable:true});
+ window.dispatchEvent(event);
+ status.textContent=event.isTrusted?'Enter real recebido':'Enter simulado enviado e recebido nesta página. O jogo pode rejeitá-lo.';
+});
+</script></body></html>
